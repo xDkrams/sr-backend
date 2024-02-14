@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Request = require("../models/Request");
+const transporter = require("../../mailer/nodemailer");
 
 // Sample API route to create and save a new request
 const convertKeysToCamelCase = (data) => {
@@ -69,9 +70,22 @@ router.post("/", async (req, res) => {
       dateRequest: new Date(),
     });
 
-    console.log(newRequest);
     // Save the new request to the database
     await newRequest.save();
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: newRequest.email, // Use the email address from the request data
+      subject: "New Request Created",
+      text: "A new request has been created.",
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error("Error sending email:", error);
+      } else {
+        console.log("Email sent:", info.response);
+      }
+    });
 
     res.status(201).json({
       message: `Request created successfully, your request number is ${newRequestNumber}`,
