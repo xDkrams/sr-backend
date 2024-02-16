@@ -15,8 +15,11 @@ import {
   Grid,
 } from "@mui/material";
 import axios from "axios";
+import { SnackbarProvider, useSnackbar } from "notistack";
 
 const Form = () => {
+  const { enqueueSnackbar } = useSnackbar();
+
   const [formData, setFormData] = useState({
     "First Name": "",
     "Last Name": "",
@@ -48,40 +51,40 @@ const Form = () => {
     }));
   };
 
+  const handleVariant = (variant, message) => {
+    enqueueSnackbar(message, { variant });
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    // Combine form data and checkbox data
     const requestData = { ...formData, ...request, status: "Pending" };
-    console.log(requestData);
+
     try {
-      // Make a POST request to your backend API
       const response = await axios.post(
         "http://localhost:5000/api/postRequests",
         requestData
       );
 
-      // Log the response from the backend
-      console.log("Backend Response:", response.data);
-
-      // Show an alert with the message from the backend
-      alert(response.data.message);
-    } catch (error) {
-      // Log any errors that occur during the request
-      console.error("Error submitting form:", error);
-
-      // Check if the error response contains a message
-      if (
-        error.response &&
-        error.response.data &&
-        error.response.data.message
-      ) {
-        // Show an alert with the specific error message
-        alert(error.response.data.message);
-      } else {
-        // Show a generic error alert
-        alert("Error submitting form. Please try again later.");
+      if (response.status === 200) {
+        handleVariant("success", response.data.message);
       }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      // Show the error message from console.error in a snackbar
+      handleVariant("error", `Error submitting form: ${error}`);
+      // if (
+      //   error.response &&
+      //   error.response.data &&
+      //   error.response.data.message
+      // ) {
+      //   handleVariant("error", error.response.data.message);
+      // } else {
+      //   handleVariant(
+      //     "error",
+      //     "Error submitting form. Please try again later."
+      //   );
+      // }
     }
   };
 
