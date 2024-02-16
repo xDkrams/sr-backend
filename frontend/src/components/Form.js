@@ -1,3 +1,6 @@
+import fillUpBG from "../assets/fillupBg.png";
+import teal from "../assets/tealBG.png";
+
 import { useState } from "react";
 import {
   Container,
@@ -124,6 +127,8 @@ const Form = () => {
         padding: "2rem",
         borderRadius: "2rem",
         boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
+        // backgroundImage: `url(${teal})`,
+        backgroundColor: "white",
       }}
     >
       <form onSubmit={handleSubmit}>

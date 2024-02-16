@@ -11,7 +11,9 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 } */
-
+* {
+  margin: 0;
+}
 .active-paper {
   background-color: #e0e0e0; /* Change this to the desired highlight color */
 }

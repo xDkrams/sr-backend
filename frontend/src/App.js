@@ -10,11 +10,21 @@ import Login from "./components/Admin/Login";
 import Form from "./components/Form";
 import Task from "./components/Admin/Task";
 import Summary from "./components/Admin/Summary";
+import backgroundImage from "./assets/formbg.png";
+import "./index.css";
 const App = () => {
   const [isAdmin, setIsAdmin] = useState(false);
+  const pageStyle = {
+    backgroundImage: `url(${backgroundImage})`,
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "cover",
+    height: "100vh",
+    margin: "0",
+    padding: "0",
+  };
 
   return (
-    <Grid container>
+    <Grid container style={pageStyle}>
       {isAdmin && (
         <Grid item xs={3}>
           <NavigationComponent />
