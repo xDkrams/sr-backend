@@ -85,7 +85,7 @@ const Form = () => {
   const fields = ["First Name", "Last Name", "Email"];
   const checkboxes = [
     { label: "COE", field: "coe" },
-    { label: "COE without Compensation", field: "COEWithCompensation" },
+    { label: "COE with Compensation", field: "COEwithCompensation" },
     { label: "Payslip", field: "payslip" },
     { label: "Service Record", field: "ServiceRecord" },
   ];

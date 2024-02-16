@@ -72,14 +72,58 @@ router.post("/", async (req, res) => {
 
     // Save the new request to the database
     await newRequest.save();
-    const mailOptions = {
+
+    // sending mail options
+
+    // Get an array of property names from mappedData
+    const properties = Object.keys(mappedData);
+
+    // Filter out properties that are not true
+    const selectedProperties = properties.filter(
+      (property) => mappedData[property] === true
+    );
+
+    // Join selected properties with commas and convert to lowercase
+    const requestForString = selectedProperties.join(", ").toUpperCase();
+
+    const requesteeMailOptions = {
       from: process.env.EMAIL_USER,
       to: newRequest.email, // Use the email address from the request data
-      subject: "New Request Created",
-      text: "A new request has been created.",
+      subject: "TSSD Request Form",
+      text: `
+      Dear Ms/Mr. ${mappedData.lastName},
+
+
+      A new request has been created in the TSSD system with the following details:
+
+        - Requestee: ${mappedData.lastName}
+        - Request Type: ${requestForString}
+        - Control Number: ${newRequestNumber}
+        - Date of Request: ${new Date().toDateString()}
+
+      Thank you!`,
     };
 
-    transporter.sendMail(mailOptions, (error, info) => {
+    // Mail options for the officer in charge
+    const officerMailOptions = {
+      from: process.env.EMAIL_USER,
+      to: "dabataluna@csc.gov.ph",
+      subject: "New TSSD Request Notification",
+      text: `
+      Dear TSSD Team,
+
+      A new request has been created in the TSSD system with the following details:
+
+        - Requestee: ${mappedData.lastName.toUpperCase()}, ${mappedData.firstName.toUpperCase()}
+        - Office: ${mappedData.Office.toUpperCase()}
+        - Request Type: ${requestForString}
+        - Control Number: ${newRequestNumber}
+        - Date of Request: ${new Date().toDateString()}
+      
+      Thank you!`,
+    };
+
+    transporter.sendMail(requesteeMailOptions, (error, info) => {
       if (error) {
         console.error("Error sending email:", error);
       } else {
@@ -87,6 +131,13 @@ router.post("/", async (req, res) => {
       }
     });
 
+    transporter.sendMail(officerMailOptions, (error, info) => {
+      if (error) {
+        console.error("Error sending email to officer:", error);
+      } else {
+        console.log("Email sent to officer:", info.response);
+      }
+    });
     res.status(201).json({
       message: `Request created successfully, your request number is ${newRequestNumber}`,
     });
