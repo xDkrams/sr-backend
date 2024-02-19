@@ -17,9 +17,13 @@ app.use((req, res, next) => {
   );
   res.setHeader(
     "Access-Control-Allow-Headers",
-    "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
   );
-  next();
+  if (req.method === "OPTIONS") {
+    res.sendStatus(200);
+  } else {
+    next();
+  }
 });
 
 // Parse JSON request bodies
