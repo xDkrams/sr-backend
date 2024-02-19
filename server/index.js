@@ -1,16 +1,15 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-const Request = require("./Request/models/Request");
+const cors = require("cors");
 const requestApiRoutes = require("./Request/routes/Api");
 const userApiRoutes = require("./User/routes/userApi");
-const cors = require("cors"); // Import the cors middleware
 require("dotenv").config();
 
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Allow CORS for all origins
+// Allow CORS for all origins and methods
 app.use(cors());
 
 // Parse JSON request bodies
