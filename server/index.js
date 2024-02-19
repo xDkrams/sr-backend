@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const requestApiRoutes = require("./Request/routes/Api");
 const userApiRoutes = require("./User/routes/userApi");
+const test = require("./test/testApi");
 require("dotenv").config();
 
 const app = express();
@@ -45,7 +46,7 @@ mongoose
 // Define API routes
 app.use("/api", requestApiRoutes);
 app.use("/user", userApiRoutes);
-
+app.use("/test", test);
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
