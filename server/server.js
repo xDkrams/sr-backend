@@ -8,10 +8,14 @@ const cors = require("cors"); // Import the cors middleware
 require("dotenv").config();
 
 const app = express();
-const PORT = process.env.PORT || 5000;
 
+// Allow CORS for all origins
 app.use(cors());
 
+// Parse JSON request bodies
+app.use(bodyParser.json());
+
+// Connect to MongoDB
 mongoose
   .connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
@@ -23,10 +27,8 @@ mongoose
   .catch((err) => {
     console.error("MongoDB connection failed:", err);
   });
-// Middleware
-app.use(bodyParser.json());
 
-// Use the API routes
+// Define API routes
 app.use("/api", requestApiRoutes);
 app.use("/user", userApiRoutes);
 // Start the server
