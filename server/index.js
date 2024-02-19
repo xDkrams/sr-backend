@@ -9,10 +9,10 @@ require("dotenv").config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Use CORS middleware with '*' for all origins
+// Use CORS middleware with specific origin and *
 app.use(
   cors({
-    origin: "*",
+    origin: ["https://sr-fe.vercel.app", "*"],
   })
 );
 
