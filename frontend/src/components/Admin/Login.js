@@ -33,11 +33,12 @@ const Login = ({ setIsAdmin }) => {
           setIsAdmin(true);
           navigate("/dashboard");
         } else {
+          console.log(res);
           throw res.data.message;
         }
       })
       .catch((err) => {
-        console.log(response.data);
+        console.log(err.response.data);
         alert(err.response.data.message);
       });
   };
