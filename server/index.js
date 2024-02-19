@@ -8,6 +8,20 @@ require("dotenv").config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// Middleware to set CORS headers
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "https://sr-fe.vercel.app");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, OPTIONS, POST, PUT, PATCH, DELETE"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
+  );
+  next();
+});
+
 // Parse JSON request bodies
 app.use(bodyParser.json());
 
