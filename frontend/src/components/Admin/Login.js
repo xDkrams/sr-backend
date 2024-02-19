@@ -21,7 +21,7 @@ const Login = ({ setIsAdmin }) => {
 
   const handleLogin = () => {
     axios
-      .post("https://your-vercel-app.vercel.app/user/login", {
+      .post("https://sr-be.vercel.app/user/login", {
         email,
         password,
       })
