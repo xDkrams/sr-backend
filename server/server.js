@@ -31,6 +31,10 @@ mongoose
 // Define API routes
 app.use("/api", requestApiRoutes);
 app.use("/user", userApiRoutes);
+
+// Error handling for CORS preflight requests
+app.options("*", cors());
+
 // Start the server
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
