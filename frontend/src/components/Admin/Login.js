@@ -21,10 +21,13 @@ const Login = ({ setIsAdmin }) => {
 
   const handleLogin = () => {
     axios
-      .post("https://sr-be.vercel.app/user/login", {
-        email,
-        password,
-      })
+      .post(
+        "sr-backend-is7sknmvh-krams-projects-066bc402.vercel.app/user/login",
+        {
+          email,
+          password,
+        }
+      )
       .then((res) => {
         if (res.status === 200) {
           setIsAdmin(true);
