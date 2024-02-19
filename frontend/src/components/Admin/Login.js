@@ -22,7 +22,7 @@ const Login = ({ setIsAdmin }) => {
   const handleLogin = () => {
     axios
       .post(
-        "https://sr-backend-is7sknmvh-krams-projects-066bc402.vercel.app/api/user/login",
+        "https://sr-backend-is7sknmvh-krams-projects-066bc402.vercel.app/user/login",
         {
           email,
           password,
