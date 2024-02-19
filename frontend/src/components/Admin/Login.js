@@ -21,7 +21,10 @@ const Login = ({ setIsAdmin }) => {
 
   const handleLogin = () => {
     axios
-      .post("http://localhost:5000/user/login", { email, password })
+      .post("https://your-vercel-app.vercel.app/api/user/login", {
+        email,
+        password,
+      })
       .then((res) => {
         if (res.status === 200) {
           setIsAdmin(true);
