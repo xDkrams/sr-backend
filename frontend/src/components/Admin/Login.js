@@ -26,7 +26,8 @@ const Login = ({ setIsAdmin }) => {
         {
           email,
           password,
-        }
+        },
+        { withCredentials: true }
       )
       .then((res) => {
         if (res.status === 200) {
