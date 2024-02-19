@@ -8,20 +8,10 @@ const cors = require("cors"); // Import the cors middleware
 require("dotenv").config();
 
 const app = express();
+const PORT = process.env.PORT || 5000;
 
-// // Allow CORS for all origins
-// app.use(cors());
-
-// Allow CORS for all origins and methods
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Content-Type, Authorization, Content-Length, X-Requested-With"
-  );
-  next();
-});
+// Allow CORS for all origins
+app.use(cors());
 
 // Parse JSON request bodies
 app.use(bodyParser.json());
@@ -42,9 +32,6 @@ mongoose
 // Define API routes
 app.use("/api", requestApiRoutes);
 app.use("/user", userApiRoutes);
-
-// Error handling for CORS preflight requests
-app.options("*", cors());
 
 // Start the server
 app.listen(PORT, () => {
