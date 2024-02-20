@@ -17,7 +17,7 @@ mongoose
   .catch((err) => console.error("MongoDB connection error:", err));
 
 // Define routes
-app.get("/", (req, res) => {
+app.get("/test", (req, res) => {
   res.send("Hello from Vercel serverless backend!");
 });
 
